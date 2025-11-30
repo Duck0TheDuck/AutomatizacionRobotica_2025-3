@@ -1,0 +1,45 @@
+class program {
+ void girarDerecha(){
+          iterate(3){
+          	 turnleft();
+          }
+        
+    }
+void directMove(){
+	while(frontIsClear){
+    	move();
+        pick3Beeper();
+        
+    }
+}
+
+void pick3Beeper(){
+	if(nextToABeeper){
+    
+    pickbeeper();
+    if(nextToABeeper){
+    	pickbeeper();
+    		if(nextToABeeper){
+    			pickbeeper();
+   			 }
+             else{
+             iterate(2){
+             putbeeper();}
+             }
+    
+    
+    }else{
+    putbeeper();
+    
+    }
+ } 
+    }
+      
+     
+
+    program () {
+        // TODO poner codigo aqui
+        directMove();
+        turnoff();
+    }
+}
