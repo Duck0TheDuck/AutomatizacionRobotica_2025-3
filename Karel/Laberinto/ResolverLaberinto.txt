@@ -1,0 +1,69 @@
+class program {
+    void girarDerecha() {
+        iterate(3) {
+            turnleft();
+        }
+    }
+
+    void regresarInicio() {
+        // Ir hacia el Oeste
+        while (notFacingWest) {
+            turnleft();
+        }
+        while (frontIsClear) {
+            move();
+        }
+
+        // Ir hacia el Sur
+        while (notFacingSouth) {
+            turnleft();
+        }
+        while (frontIsClear) {
+            move();
+        }
+    }
+
+    void avanzarDireccionLibre() {
+        if (rightIsClear) {
+            girarDerecha();
+            move();
+        } else if (frontIsClear) {
+            move();
+        } else if (leftIsClear) {
+            turnleft();
+            move();
+        } else {
+            // Todo bloqueado: giro en U
+            turnleft();
+            turnleft();
+        }
+    }
+
+    program() {
+        // Buscar el primer beeper
+        while (notNextToABeeper) {
+            avanzarDireccionLibre();
+        }
+        pickbeeper();
+
+        // Regresar a la casilla inicial después del primer beeper
+        regresarInicio();
+
+        // Buscar hasta tener 2 beepers en la mochila
+        while (anyBeepersInBeeperBag) {
+            // Explorar otra vez
+            avanzarDireccionLibre();
+
+            if (nextToABeeper) {
+                pickbeeper();
+                regresarInicio();
+                // Si ya tiene 2, apagar
+                if (anyBeepersInBeeperBag) {
+                    turnoff();
+                }
+            }
+        }
+
+        turnoff();
+    }
+}
